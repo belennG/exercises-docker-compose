@@ -9,7 +9,20 @@ services:
       - "8080:8080"
     environment:
       - REDIS_HOST=redis
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DATABASE=mydb
     depends_on:
       - redis
+      - db
+    restart: unless-stopped
   redis:
     image: redis
+  
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
